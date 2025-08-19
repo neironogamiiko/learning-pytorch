@@ -1,6 +1,5 @@
 import cv2; import torch
 import numpy as np
-from sklearn.externals.array_api_compat import device
 
 print(f"\nCUDA available: {torch.cuda.is_available()}")
 print(f"Device ID: {torch.cuda.current_device()}")
