@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1e05653-4abe-4e40-a20d-15a75235c6e5" name="Changes" comment="" />
+    <list default="true" id="d1e05653-4abe-4e40-a20d-15a75235c6e5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/PyTorch Workflow Fundamentals/Ex1 (data preparing and loading).py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,6 +23,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;neironogamiiko&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:neironogamiiko/learning-pytorch.git&quot;,
+    &quot;accountId&quot;: &quot;068dd2a4-a162-4165-94a6-d0bd8be7b3f7&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -32,6 +47,8 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Python.Ex 9 (reproducibility).executor": "Run",
+    "Python.Ex1 (data preparing and loading).executor": "Run",
+    "Python.Ex1 (end-to-end workflow example).executor": "Run",
     "Python.Ex1.executor": "Run",
     "Python.Ex11 (running on GPU and CPU).executor": "Run",
     "Python.Ex2.executor": "Run",
@@ -44,7 +61,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
   }
 }]]></component>
