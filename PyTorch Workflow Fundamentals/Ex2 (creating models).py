@@ -39,10 +39,7 @@ class LinearRegressionModel(nn.Module): # all costume models should also subclas
 
 
 weight, bias = .7, .3
-
-start = 0
-end = 1
-step = .02
+start = 0; end = 1; step = .02
 
 X =  torch.arange(start,end,step).unsqueeze(dim=1)
 y = weight * X + bias
@@ -85,6 +82,11 @@ optimizer = torch.optim.SGD(params=model_0.parameters(), # Stochastic Gradient D
 
 epochs = 10000 # one loop through the data . . .
 # epoch - it's also a hyperparameter, 'cuse we've set it ourselves
+
+# Track different values
+epoch_counter, loss_values, test_loss_values = [], [], []
+
+# Training model
 # 1. Loop through the data
 for epoch in range(epochs):
     model_0.train() # train mode sets all parameters that require gradients to 'require gradients'
@@ -102,17 +104,22 @@ for epoch in range(epochs):
     # 5. Loss backward (Backpropagation)
     loss.backward()
 
-    # Optimizer step (Gradient Descent)
+    # 6. Optimizer step (Gradient Descent)
     optimizer.step()
 
-    model_0.eval()
+    # Testing
+    model_0.eval() # turns off different settings in the model not needed fpr evaluation/testing (dropout/batch norm layers)
 
 print(f"Predicted y:\n{y_pred}")
 
 print(f"Ideal weight value: {weight}, and bias value: {bias}")
 print(f"Predicted values{model_0.state_dict()}")
 
+# Test without learning
 with torch.inference_mode():
-    y_preds_new = model_0(X_test)
+    test_pred = model_0(X_test)
+    test_loss = losses(test_pred, y_test)
 
-plot_predictions(train_data=X_train, train_labels=y_train, test_data=X_test, test_labels=y_test, predictions=y_preds_new)
+print(f"Loss values for test data: {test_loss}")
+
+plot_predictions(train_data=X_train, train_labels=y_train, test_data=X_test, test_labels=y_test, predictions=test_pred)
