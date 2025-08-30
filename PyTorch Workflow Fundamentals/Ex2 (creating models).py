@@ -1,5 +1,19 @@
 import torch
 from torch import nn
+import matplotlib
+matplotlib.use("TkAgg")
+import matplotlib.pyplot as plt
+
+def plot_predictions(train_data,train_labels,test_data,test_labels,predictions=None):
+    plt.figure(figsize=(10,7))
+    plt.scatter(train_data, train_labels, c='b', s=4, label='Training data')
+    plt.scatter(test_data, test_labels, c='g', s=4, label='Test data')
+
+    if predictions is not None:
+        plt.scatter(test_data, predictions, c='r', s=4, label='Predictions')
+
+    plt.legend(prop={"size":14})
+    plt.show()
 
 
 class LinearRegressionModel(nn.Module): # all costume models should also subclass torch.nn.Module
@@ -69,7 +83,7 @@ optimizer = torch.optim.SGD(params=model_0.parameters(), # Stochastic Gradient D
 # 5. Loss backward - move backwards through the network to calculate the gradients of each of the parameters of our model with respect to the loss (Backpropagation)
 # 6. Optimizer step - use the optimizer to adjust our model's parameters tp tru amd improve the loss (Gradient Descent)
 
-epochs = 1 # one loop through the data . . .
+epochs = 10000 # one loop through the data . . .
 # epoch - it's also a hyperparameter, 'cuse we've set it ourselves
 # 1. Loop through the data
 for epoch in range(epochs):
@@ -80,6 +94,7 @@ for epoch in range(epochs):
 
     # 3. Calculate the loss
     loss = losses(y_pred,y_train)
+    print(f"Loss: {loss}")
 
     # 4. Optimizer zero grad
     optimizer.zero_grad()
@@ -90,4 +105,14 @@ for epoch in range(epochs):
     # Optimizer step (Gradient Descent)
     optimizer.step()
 
+    model_0.eval()
+
 print(f"Predicted y:\n{y_pred}")
+
+print(f"Ideal weight value: {weight}, and bias value: {bias}")
+print(f"Predicted values{model_0.state_dict()}")
+
+with torch.inference_mode():
+    y_preds_new = model_0(X_test)
+
+plot_predictions(train_data=X_train, train_labels=y_train, test_data=X_test, test_labels=y_test, predictions=y_preds_new)
