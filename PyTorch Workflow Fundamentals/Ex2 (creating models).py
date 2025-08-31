@@ -3,8 +3,25 @@ from torch import nn
 import matplotlib
 matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
+import os
+import numpy as np
+
+if torch.cuda.is_available():
+    print(f"Device ID: {torch.cuda.current_device()}")
+    print(f"Device name: {torch.cuda.get_device_name(0)}\n")
+    device = 'cuda'
+
+    os.system('nvidia-smi')
+else:
+    device = 'cpu'
 
 def plot_predictions(train_data,train_labels,test_data,test_labels,predictions=None):
+    # Figure 1: weights * x + bias
+    train_data = train_data.cpu().numpy()
+    train_labels = train_labels.cpu().numpy()
+    test_data = test_data.cpu().numpy()
+    test_labels = test_labels.cpu().numpy()
+    predictions = predictions.cpu().numpy()
     plt.figure(figsize=(10,7))
     plt.scatter(train_data, train_labels, c='b', s=4, label='Training data')
     plt.scatter(test_data, test_labels, c='g', s=4, label='Test data')
@@ -13,7 +30,7 @@ def plot_predictions(train_data,train_labels,test_data,test_labels,predictions=N
         plt.scatter(test_data, predictions, c='r', s=4, label='Predictions')
 
     plt.legend(prop={"size":14})
-    plt.show()
+    plt.title("weights * x + bias")
 
 
 class LinearRegressionModel(nn.Module): # all costume models should also subclass torch.nn.Module
@@ -27,11 +44,13 @@ class LinearRegressionModel(nn.Module): # all costume models should also subclas
         self.weights = nn.Parameter(torch.randn(1, # start with a random weights and try to adjust it to the ideal weights
                                                 requires_grad=True, # for gradient descent we need 'requires_grad=True'
                                                                     # can this parameter be updated via Gradient descent?
-                                                dtype=torch.float32))
+                                                dtype=torch.float32,
+                                                device=device))
         self.bias = nn.Parameter(torch.randn(1, # start with a random bias and try to adjust it to the ideal bias
                                              requires_grad=True, # for gradient descent we need 'requires_grad=True'
                                                                  # can this parameter be updated via Gradient descent?
-                                             dtype=torch.float32))
+                                             dtype=torch.float32,
+                                             device=device))
 
     # Forward method to define the computation in the model
     def forward(self, x: torch.Tensor) -> torch.Tensor:
@@ -41,7 +60,7 @@ class LinearRegressionModel(nn.Module): # all costume models should also subclas
 weight, bias = .7, .3
 start = 0; end = 1; step = .02
 
-X =  torch.arange(start,end,step).unsqueeze(dim=1)
+X =  torch.arange(start,end,step, device=device).unsqueeze(dim=1)
 y = weight * X + bias
 
 # Splitting training and test sets
@@ -49,15 +68,15 @@ train = int(.8 * len(X))
 X_train, y_train = X[:train], y[:train]
 X_test, y_test = X[train:], y[train:]
 
-torch.manual_seed(42)
-model_0 = LinearRegressionModel()
+torch.cuda.manual_seed(42)
+model_0 = LinearRegressionModel().to(device=device)
 print(f"Parameters: {model_0.state_dict()}")
 
 with torch.inference_mode():
     y_preds = model_0(X_test)
 
-print(f"Ideal y values:\n{y_test}\n")
-print(f"Predicted y:\n{y_preds}")
+# print(f"Ideal y values:\n{y_test}\n")
+# print(f"Predicted y:\n{y_preds}")
 
 # One way to measure how poor or how wrong your models predictions are is to use a loss function.
 # Note: 'loss' function may also call 'cost' function, or 'criterion' in different areas.
@@ -80,7 +99,7 @@ optimizer = torch.optim.SGD(params=model_0.parameters(), # Stochastic Gradient D
 # 5. Loss backward - move backwards through the network to calculate the gradients of each of the parameters of our model with respect to the loss (Backpropagation)
 # 6. Optimizer step - use the optimizer to adjust our model's parameters tp tru amd improve the loss (Gradient Descent)
 
-epochs = 10000 # one loop through the data . . .
+epochs = 5000 # one loop through the data . . .
 # epoch - it's also a hyperparameter, 'cuse we've set it ourselves
 
 # Track different values
@@ -110,16 +129,25 @@ for epoch in range(epochs):
     # Testing
     model_0.eval() # turns off different settings in the model not needed fpr evaluation/testing (dropout/batch norm layers)
 
-print(f"Predicted y:\n{y_pred}")
+    # Test without learning
+    with torch.inference_mode():
+        test_pred = model_0(X_test)
+        test_loss = losses(test_pred, y_test)
+    if epoch % 100 == 0:
+        epoch_counter.append(epoch); loss_values.append(loss); test_loss_values.append(test_loss)
 
-print(f"Ideal weight value: {weight}, and bias value: {bias}")
-print(f"Predicted values{model_0.state_dict()}")
-
-# Test without learning
-with torch.inference_mode():
-    test_pred = model_0(X_test)
-    test_loss = losses(test_pred, y_test)
-
-print(f"Loss values for test data: {test_loss}")
+print(f"\nPredicted y:\n{y_pred}")
+print(f"\nIdeal weight value: {weight}, and bias value: {bias}")
+print(f"Predicted weight and bias: {model_0.state_dict()}\n")
+print(f"Current epoch: {epoch_counter}\nTraining loss values: {loss_values}\nTest loss values: {test_loss_values}")
 
 plot_predictions(train_data=X_train, train_labels=y_train, test_data=X_test, test_labels=y_test, predictions=test_pred)
+
+plt.figure(figsize=(10,7))
+plt.plot(epoch_counter, np.array(torch.tensor(loss_values).detach().cpu().numpy()),label="Train loss")
+plt.plot(epoch_counter, np.array(torch.tensor(test_loss_values).detach().cpu().numpy()), label="Test loss")
+plt.title("Training and test loss curve")
+plt.xlabel("Epochs")
+plt.ylabel("Loss")
+plt.legend()
+plt.show()
