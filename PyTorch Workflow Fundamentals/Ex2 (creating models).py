@@ -34,11 +34,11 @@ def plot_predictions(train_data,train_labels,test_data,test_labels,predictions=N
 
 
 class LinearRegressionModel(nn.Module): # all costume models should also subclass torch.nn.Module
-    '''
+    """
     Linear Regression Model:
     1. Start with random values of weight and bias.
     2. Look at training data and adjust the random values to better represent or get closer to the ideal values.
-    '''
+    """
     def __init__(self):
         super().__init__()
         self.weights = nn.Parameter(torch.randn(1, # start with a random weights and try to adjust it to the ideal weights
@@ -142,6 +142,8 @@ print(f"Predicted weight and bias: {model_0.state_dict()}\n")
 print(f"Current epoch: {epoch_counter}\nTraining loss values: {loss_values}\nTest loss values: {test_loss_values}")
 
 plot_predictions(train_data=X_train, train_labels=y_train, test_data=X_test, test_labels=y_test, predictions=test_pred)
+
+print(f"model_0 predictions:\n{test_pred}")
 
 plt.figure(figsize=(10,7))
 plt.plot(epoch_counter, np.array(torch.tensor(loss_values).detach().cpu().numpy()),label="Train loss")

@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d1e05653-4abe-4e40-a20d-15a75235c6e5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/PyTorch Workflow Fundamentals/Ex2 (creating models).py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PyTorch Workflow Fundamentals/Ex2 (creating models).py" beforeDir="false" afterPath="$PROJECT_DIR$/PyTorch Workflow Fundamentals/Ex2 (creating models).py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PyTorch Workflow Fundamentals/Ex4 (load models).py" beforeDir="false" afterPath="$PROJECT_DIR$/PyTorch Workflow Fundamentals/Ex4 (load models).py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +54,7 @@
     "Python.Ex11 (running on GPU and CPU).executor": "Run",
     "Python.Ex2 (creating models).executor": "Run",
     "Python.Ex2.executor": "Run",
+    "Python.Ex4 (load models).executor": "Run",
     "Python.Ex5 (matrix multiplication).executor": "Run",
     "Python.Ex6 (Matrix aggregation).executor": "Run",
     "Python.Ex7 (reshaping, stacking, squeezing, unsqueezing).executor": "Run",
