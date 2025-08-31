@@ -151,3 +151,35 @@ plt.xlabel("Epochs")
 plt.ylabel("Loss")
 plt.legend()
 plt.show()
+
+from pathlib import Path
+
+# Saving algorithm:
+
+# Saving Model for Inference
+# 1. Create model's directory
+MODEL_PATH = Path("/home/frasero/PycharmProjects/Models")
+MODEL_PATH.mkdir(parents=True, exist_ok=True)
+
+# 2. Create a model save path
+MODEL_NAME = "SimpleLinearRegressionModel(state_dict).pth"
+MODEL_SAVE_PATH = MODEL_PATH / MODEL_NAME
+
+# 3. Save the module state_dict
+print(f"Saving model state_dict by path: {MODEL_SAVE_PATH}")
+torch.save(obj=model_0.state_dict(),
+           f=MODEL_SAVE_PATH)
+
+# Save Entire Model
+# 1. Create model's directory
+MODEL_PATH = Path("/home/frasero/PycharmProjects/Models")
+MODEL_PATH.mkdir(parents=True, exist_ok=True)
+
+# 2. Create a model save path
+MODEL_NAME = "SimpleLinearRegressionModel(entire).pth"
+MODEL_SAVE_PATH = MODEL_PATH / MODEL_NAME
+
+# 3. Save the entire module
+print(f"Saving entire model by path: {MODEL_SAVE_PATH}")
+torch.save(obj=model_0,
+           f=MODEL_SAVE_PATH)
