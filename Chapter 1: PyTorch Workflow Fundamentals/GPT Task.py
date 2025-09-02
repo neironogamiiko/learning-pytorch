@@ -114,6 +114,16 @@ def load_model(LOAD_PATH, entire_flag=False) -> Model:
 
     return model
 
+# 6. Plot data
+def plot_data(data : SyntheticDataset):
+    plt.figure(figsize=(10, 7))
+    plt.scatter(data.X_train.cpu(), data.y_train.cpu(), c='b', s=4, label='Training data')
+    plt.scatter(data.X_test.cpu(), data.y_test.cpu(), c='g', s=4, label='Test data')
+    plt.scatter(data.X_test.cpu(), test_predictions.cpu(), c='r', s=10, label='Predicted data')
+    plt.title("y = 2 * X + 1 + noise")
+    plt.legend()
+    plt.show()
+
 data = SyntheticDataset(100, device)
 model = Model().to(device)
 
@@ -121,12 +131,4 @@ criterion = nn.MSELoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=.01)
 train(model, 301, criterion, optimizer, data.train_loader)
 test_predictions = evaluate(model, criterion, data.test_loader)
-
-
-plt.figure(figsize=(10, 7))
-plt.scatter(data.X_train.cpu(), data.y_train.cpu(), c='b', s=4, label='Training data')
-plt.scatter(data.X_test.cpu(), data.y_test.cpu(), c='g', s=4, label='Test data')
-plt.scatter(data.X_test.cpu(), test_predictions.cpu(), c='r', s=10, label='Predicted data')
-plt.title("y = 2 * X + 1 + noise")
-plt.legend()
-plt.show()
+plot_data(data)
