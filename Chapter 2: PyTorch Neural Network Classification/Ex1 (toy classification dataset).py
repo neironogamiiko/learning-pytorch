@@ -1,8 +1,9 @@
-import torch; from torch import nn
+import torch
+from torch import nn, optim
 from sklearn.datasets import make_circles
+from sklearn.model_selection import train_test_split
 import matplotlib; matplotlib.use("TkAgg")
 import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
 
 if torch.cuda.is_available():
     print(f"Current device name: {torch.cuda.get_device_name()}")
@@ -11,6 +12,12 @@ if torch.cuda.is_available():
 else:
     device = 'cpu'
     print(f"Current device: {device}")
+
+    
+def accuracyMetric(y, y_prediction):
+    correct = torch.eq(y, y_prediction).sum().item()
+    accuracy = (correct/len(y_prediction))*100
+    return accuracy
 
 # make 1000 samples
 N = 1000
@@ -39,5 +46,5 @@ class ClassificationModel(nn.Module):
 
 model = ClassificationModel().to(device)
 loss_function = nn.BCEWithLogitsLoss()
-optimizer = torch.optim.SGD(params=model.parameters(), lr=.01)
+optimizer = optim.SGD(params=model.parameters(), lr=.01)
 
