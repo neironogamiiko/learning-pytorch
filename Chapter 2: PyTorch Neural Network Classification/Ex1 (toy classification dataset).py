@@ -24,7 +24,7 @@ def accuracy_metric(y, y_prediction):
 N = 1000
 X, y = make_circles(N, noise=.03,random_state=42)
 
-plt.figure()
+plt.figure(figsize=(10,10))
 plt.scatter(x=X[:,0], y=X[:,1], c=y, cmap=plt.cm.RdYlBu)
 plt.show()
 
@@ -92,9 +92,9 @@ for epoch in range(epochs):
     accuracy = accuracy_metric(y_train, y_predictions)
     # Zero gradients. The optimizers gradients are set to zero (they are accumulated by default) so they can be recalculated for the specific training step (`optimizer.zero_grad()`)
     optimizer.zero_grad()
-    # Backward pass. Computes the gradient of the loss with respect for every model parameters to be updated (each parameter with `requiers_grad=True`). This is known as backpropagation, hence "backwards" (`loss.backward()`)
+    # Backward pass. Computes the gradient of the loss with respect for every model parameters to be updated (each parameter with `requires_grad=True`). This is known as backpropagation, hence "backwards" (`loss.backward()`)
     loss.backward()
-    # Step the optimizer (gradient descent). Update the parameters with `requieres_grad=True`) with respect to the loss gradients in order to improve them (`optimizer.step()`).
+    # Step the optimizer (gradient descent). Update the parameters with `requires_grad=True`) with respect to the loss gradients in order to improve them (`optimizer.step()`).
     optimizer.step()
 
     # testing
@@ -122,7 +122,7 @@ else:
 
 from helper_functions import plot_predictions, plot_decision_boundary
 
-plt.figure(figsize=(12,6))
+plt.figure(figsize=(10,5))
 plt.subplot(1,2,1)
 plt.title("Train")
 plot_decision_boundary(model, X_train, y_train)
@@ -199,7 +199,7 @@ for epoch in range(epochs):
     if epoch % 100 == 0:
         print(f"Epoch: {epoch} | Loss: {loss:.5f}, Accuracy: {accuracy:.2f}% | Test loss: {test_loss:.5f}, test accuracy: {test_accuracy:.2f}%")
 
-plt.figure(figsize=(12,6))
+plt.figure(figsize=(10,5))
 plt.subplot(1,2,1)
 plt.title("Train")
 plot_decision_boundary(model_circles, X_train, y_train)
