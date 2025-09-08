@@ -146,9 +146,12 @@ plt.show()
 class CirclesModel(nn.Module):
     def __init__(self):
         super().__init__()
+
+        # We should put our non-linear activation function between every layers
+
         self.layers = nn.Sequential(
             nn.Linear(2, 16),
-            nn.ReLU(),
+            nn.ReLU(), # ReLU is non-linear activation function
             nn.Linear(16, 16),
             nn.ReLU(),
             nn.Linear(16, 1)
