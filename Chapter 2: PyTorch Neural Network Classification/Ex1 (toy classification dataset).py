@@ -38,7 +38,7 @@ class ClassificationModel(nn.Module):
     def __init__(self):
         super().__init__()
         self.layers = nn.Sequential(
-            nn. (in_features=2, out_features=5),
+            nn.Linear(in_features=2, out_features=5),
             nn.Linear(in_features=5, out_features=1)
         )
 
@@ -76,7 +76,8 @@ optimizer = optim.SGD(params=model.parameters(), lr=.01)
 
 # print(torch.eq(y_prediction.squeeze(), y_prediction_labels.squeeze()))
 
-torch.cuda.manual_seed(42)
+torch.manual_seed(42); torch.cuda.manual_seed(42)
+
 X_train, y_train = X_train.to(device), y_train.to(device)
 X_test, y_test = X_test.to(device), y_test.to(device)
 
@@ -128,4 +129,81 @@ plot_decision_boundary(model, X_train, y_train)
 plt.subplot(1,2,2)
 plt.title("Test")
 plot_decision_boundary(model, X_test, y_test)
+plt.show()
+
+# Improving model (from a model's perspective, 'cuse they deal directly with the model, rather than the data).
+# 1. Add more layers: give model more chances to learn about patterns in the data.
+# 2. Add more hidden units: go from 5 hidden units to 10 hidden units
+# 3. Fit for longer (more epochs).
+# 4. Changing the activation function.
+# 5. Change the learning rate.
+# 6. Change the loss function.
+
+# Let's improve with adding more hidden units: 5->10
+# Increase the number of layers: 2->3
+# Increase the number of epochs: 300->3000
+
+class CirclesModel(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.layers = nn.Sequential(
+            nn.Linear(2, 16),
+            nn.ReLU(),
+            nn.Linear(16, 16),
+            nn.ReLU(),
+            nn.Linear(16, 1)
+        )
+
+    def forward(self, x):
+        return self.layers(x)
+
+model_circles = CirclesModel().to(device)
+
+loss_function_circles = nn.BCEWithLogitsLoss()
+optimizer = optim.SGD(params=model_circles.parameters(), lr=.1, momentum=.9)
+
+torch.manual_seed(42); torch.cuda.manual_seed(42)
+
+epochs = 3001
+for epoch in range(epochs):
+    model_circles.train()
+
+    #forward
+    y_logits = model_circles(X_train).squeeze()
+    y_predictions = torch.round(torch.sigmoid(y_logits))
+
+    # loss/accuracy
+    loss = loss_function_circles(y_logits, y_train)
+    accuracy = accuracy_metric(y_train, y_predictions)
+
+    # optimizer zero grad
+    optimizer.zero_grad()
+
+    # loss backwards
+    loss.backward()
+
+    # optimizer step
+    optimizer.step()
+
+    # testing
+    model.eval()
+    with inference_mode():
+        # forward
+        test_logits = model_circles(X_test).squeeze()
+        test_predictions = torch.round(torch.sigmoid(test_logits))
+
+        # loss
+        test_loss = loss_function_circles(test_logits, y_test)
+        test_accuracy = accuracy_metric(y_test, test_predictions)
+
+    if epoch % 100 == 0:
+        print(f"Epoch: {epoch} | Loss: {loss:.5f}, Accuracy: {accuracy:.2f}% | Test loss: {test_loss:.5f}, test accuracy: {test_accuracy:.2f}%")
+
+plt.figure(figsize=(12,6))
+plt.subplot(1,2,1)
+plt.title("Train")
+plot_decision_boundary(model_circles, X_train, y_train)
+plt.subplot(1,2,2)
+plt.title("Test")
+plot_decision_boundary(model_circles, X_test, y_test)
 plt.show()
