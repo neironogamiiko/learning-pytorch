@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import matplotlib; matplotlib.use("TkAgg")
 from helper_functions import plot_decision_boundary
+from pathlib import Path
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print(f"Current device: {device}")
@@ -13,6 +14,7 @@ print(f"Current device: {device}")
 NUM_CLASSES = 4
 NUM_FEATURES = 2
 SEED = 42
+NEED_SAVE = False
 
 class DataWrapper(Dataset):
     def __init__(self, x, y):
@@ -126,3 +128,10 @@ plt.subplot(1,2,2)
 plt.title("Test")
 plot_decision_boundary(model, data.X_blob_test, data.y_blob_test)
 plt.show()
+
+if NEED_SAVE:
+    SAVE_PATH = Path("/home/frasero/PycharmProjects/Models")
+    MODEL_NAME = "MulticlassBlobClassification(state_dict).pth"
+    MODEL_SAVE_PATH = SAVE_PATH / MODEL_NAME
+    torch.save(model.state_dict(), MODEL_SAVE_PATH)
+    print(f"Saving model's parameters to: {MODEL_SAVE_PATH}")
