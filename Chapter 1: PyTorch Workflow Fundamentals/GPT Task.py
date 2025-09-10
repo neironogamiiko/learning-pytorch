@@ -43,12 +43,12 @@ class SyntheticDataset:
 
         self.train_loader = DataLoader(
             DataWrapper(self.X_train, self.y_train),
-            batch_size=32, shuffle=True
+            batch_size=16, shuffle=True
         )
 
         self.test_loader = DataLoader(
             DataWrapper(self.X_test, self.y_test),
-            batch_size=32, shuffle=False
+            batch_size=16, shuffle=False
         )
 
 # 2. Build model
@@ -129,6 +129,6 @@ model = Model().to(device)
 
 criterion = nn.MSELoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=.01)
-train(model, 301, criterion, optimizer, data.train_loader)
+train(model, 1001, criterion, optimizer, data.train_loader)
 test_predictions = evaluate(model, criterion, data.test_loader)
 plot_data(data)
