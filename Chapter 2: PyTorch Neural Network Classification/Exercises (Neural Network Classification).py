@@ -1,5 +1,5 @@
 import torch
-from torch import nn, optim
+from torch import nn, optim, manual_seed
 from torch.utils.data import Dataset, DataLoader
 from sklearn.datasets import make_moons
 from sklearn.model_selection import train_test_split
@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import matplotlib; matplotlib.use("TkAgg")
 from helper_functions import plot_decision_boundary
 from torchmetrics.classification import BinaryAccuracy
+from pathlib import Path
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print(f"Current device: {device}")
@@ -18,6 +19,9 @@ print(f"Current device: {device}")
 N_SAMPLES = 1000
 SEED = 42
 BATCH_SIZE = 32
+NEED_SAVE = True
+
+torch.manual_seed(SEED); torch.cuda.manual_seed(SEED)
 
 class DataWrapper(Dataset):
     def __init__(self, x, y):
@@ -150,3 +154,10 @@ predictions = evaluate(model, data)
 make_plot()
 
 print(predictions == data.y_test)
+
+if NEED_SAVE:
+    SAVE_PATH = Path("/home/frasero/PycharmProjects/Models")
+    MODEL_NAME = "BinaryClassificatorForNoiseMoonData(state_dict).pth"
+    FULL_PATH = SAVE_PATH / MODEL_NAME
+    torch.save(model.state_dict(), FULL_PATH)
+    print(f"Saving model's parameters to: {FULL_PATH}")
