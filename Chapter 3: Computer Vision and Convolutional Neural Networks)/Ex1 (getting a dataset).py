@@ -4,6 +4,8 @@ from torch.utils.data import Dataset, DataLoader
 import torchvision
 from torchvision import datasets, transforms
 from torchvision.transforms import ToTensor
+import matplotlib.pyplot as plt
+import matplotlib; matplotlib.use("TkAgg")
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print(f"Current device: {device}")
@@ -36,3 +38,23 @@ print(f"Number of classes: {len(class_names)}\nClasses: {class_idx}")
 
 # Check the shape of our image
 print(f"Image shape: {image.shape} and it's label: {class_names[label]}: {label}")
+
+# Visualization
+
+# def make_plot(image, label):
+#     plt.imshow(image.squeeze(), cmap="gray")
+#     plt.title(class_names[label])
+#     plt.show()
+
+torch.manual_seed(42)
+fig = plt.figure(figsize=(9,9))
+row,col = 4, 4
+for i in range(1, row*col+1):
+    random_idx = torch.randint(0, len(train_data), size=[1]).item()
+    img, label = train_data[random_idx]
+    fig.add_subplot(row, col, i)
+    plt.imshow(img.squeeze(), cmap="gray")
+    plt.title(class_names[label])
+    plt.grid(False)
+    plt.axis(False)
+plt.show()
