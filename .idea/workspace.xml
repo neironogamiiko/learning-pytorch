@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d1e05653-4abe-4e40-a20d-15a75235c6e5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chapter 2: PyTorch Neural Network Classification/Exercises (Neural Network Classification).py" beforeDir="false" afterPath="$PROJECT_DIR$/Chapter 2: PyTorch Neural Network Classification/Exercises (Neural Network Classification).py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chapter 2: PyTorch Neural Network Classification/Exercises (Neural Network Classification, part 2).py" beforeDir="false" afterPath="$PROJECT_DIR$/Chapter 2: PyTorch Neural Network Classification/Exercises (Neural Network Classification, part 2).py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +66,7 @@
     "Python.Ex9 (tensor2numpy or numpy2tensor).executor": "Run",
     "Python.Exercises (Fundamentals).executor": "Run",
     "Python.Exercises (Neural Network Classification).executor": "Run",
+    "Python.Exercises (Neural Network Classification, part 2).executor": "Run",
     "Python.Exercises (Workflow).executor": "Run",
     "Python.GPT Task.executor": "Run",
     "Python.asd.executor": "Run",
