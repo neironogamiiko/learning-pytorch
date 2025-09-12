@@ -58,3 +58,20 @@ for i in range(1, row*col+1):
     plt.grid(False)
     plt.axis(False)
 plt.show()
+
+# Prepare dataloader
+
+# It's more computationally efficient, as in, your computing hardware may not be able to look (store in memory) at 60000 images in one hit.
+# So we brake it dow to `n` images at a time (batch size of `n`).
+# It gives our neural network more chances to update it's gradients per epoch.
+
+BATCH_SIZE = 32
+
+class DataWrapper(Dataset):
+    def __init__(self, x, y):
+        self.x, self.y = x, y
+    def __len__(self):
+        return len(self.x)
+    def __getitem__(self, i):
+        return self.x[i], self.y[i]
+
