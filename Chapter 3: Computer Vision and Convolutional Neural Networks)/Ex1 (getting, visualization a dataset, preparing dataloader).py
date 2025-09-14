@@ -67,11 +67,18 @@ plt.show()
 
 BATCH_SIZE = 32
 
-class DataWrapper(Dataset):
-    def __init__(self, x, y):
-        self.x, self.y = x, y
-    def __len__(self):
-        return len(self.x)
-    def __getitem__(self, i):
-        return self.x[i], self.y[i]
+train_loader = DataLoader(
+    dataset=train_data,
+    batch_size=BATCH_SIZE,
+    shuffle=True
+)
+
+test_loader = DataLoader(
+    dataset=test_data,
+    batch_size=BATCH_SIZE,
+    shuffle=False
+)
+
+print(f"Length of train loader: {len(train_loader)} batches of {BATCH_SIZE}")
+print(f"Length of test loader: {len(test_loader)} batches of {BATCH_SIZE}")
 
