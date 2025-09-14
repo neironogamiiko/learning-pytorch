@@ -33,6 +33,8 @@ test_data = datasets.FashionMNIST(
     target_transform=None
 )
 
+class_names = train_data.classes
+
 train_loader = DataLoader(
     dataset=train_data,
     batch_size=BATCH_SIZE,
@@ -61,3 +63,32 @@ output = flatten_model(x) # perform a forward pass
 
 print(f"Shape before flattening: {x.shape} -> [color_channels, height, width]")
 print(f"Sha[e after flattening: {output.shape} -> [color_channels, height * width")
+
+class FashionModel(nn.Module):
+    def __init__(self,
+                 input_shape: int,
+                 output_shape: int):
+        super().__init__()
+        self.layers = nn.Sequential(
+            nn.Flatten(),
+            nn.Linear(in_features=input_shape, out_features=128),
+            nn.ReLU(),
+            nn.Linear(in_features=128, out_features=64),
+            nn.ReLU(),
+            nn.Linear(in_features=64, out_features=output_shape)
+        )
+
+        # Conv2d(1→32, 3×3) + ReLU
+        # Conv2d(32→64, 3×3) + ReLU
+        # MaxPool(2×2)
+        # Dropout
+        # Flatten
+        # Linear(12544 → 128) + ReLU
+        # Dropout
+        # Linear(128 → 10)
+
+    def forward(self, x):
+        return self.layers(x)
+
+input_shape = x.shape[1] * x.shape[2]
+model = FashionModel(input_shape=input_shape, output_shape=len(class_names))
