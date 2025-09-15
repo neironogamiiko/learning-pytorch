@@ -6,15 +6,18 @@ from torchvision import datasets
 from torchvision.transforms import ToTensor
 from pathlib import Path
 from tqdm.auto import tqdm
-import os; import gc
+import logging
 
-torch.backends.cudnn.benchmark = True
-torch.backends.cudnn.enabled = True
-torch.cuda.empty_cache()
-gc.collect()
-
-os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'max_split_size_mb:128'
-scaler = torch.amp.GradScaler(device="cuda")
+Path("logs").mkdir(parents=True, exist_ok=True)
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(message)s",
+    handlers=[
+        logging.StreamHandler(),
+        logging.FileHandler("logs/FashionMNIST_train.log", "w")
+    ]
+)
+logger = logging.getLogger(__name__)
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f"Current device: {device}")
@@ -22,8 +25,13 @@ print(f"Current device: {device}")
 BATCH_SIZE = 32
 SEED = 42
 N_CLASSES = 10
+LEARNING_RATE = .001
+EPOCHS = 20
+SAVE_PATH = Path("/home/frasero/PycharmProjects/Models")
+MODEL_NAME = "MulticlassificationFashionMNIST(state_dict).pth"
+FULL_PATH = SAVE_PATH / MODEL_NAME
 
-(torch.cuda.manual_seed if device == "cuda" else torch.manual_seed)(SEED)
+torch.manual_seed(SEED); torch.cuda.manual_seed(SEED)
 
 # Data preparing
 
@@ -56,6 +64,8 @@ class Data:
             batch_size=BATCH_SIZE,
             shuffle=False
         )
+
+        self.class_to_idx = train_data.class_to_idx
 
 class Model(nn.Module):
     def __init__(self):
@@ -90,7 +100,7 @@ class Model(nn.Module):
 data = Data()
 model = Model().to(device)
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(params=model.parameters(), lr=.001)
+optimizer = optim.Adam(params=model.parameters(), lr=LEARNING_RATE)
 accuracy = torchmetrics.Accuracy("multiclass", num_classes=N_CLASSES).to(device)
 
 def train(epochs:int, model:nn.Module, train_loader:DataLoader):
@@ -123,7 +133,12 @@ def train(epochs:int, model:nn.Module, train_loader:DataLoader):
         accuracy.reset()
 
         predictions, test_loss, test_accuracy = evaluate(model, data.test_loader)
-        print(f"Epoch: {epoch} | Train loss: {train_loss:.4f} | Train Accuracy: {train_accuracy*100:.2f} | Test loss: {test_loss:.4f} | Test accuracy: {test_accuracy*100:.2f}")
+
+        logger.info(
+            f"Epoch: {epoch} | "
+            f"Train loss: {train_loss:.4f} |Train Accuracy: {train_accuracy * 100:.2f}% | "
+            f"Test loss: {test_loss:.4f} | Test accuracy: {test_accuracy * 100:.2f}%"
+        )
 
 def evaluate(model:nn.Module, test_loader:DataLoader):
     all_predictions = []
@@ -148,14 +163,16 @@ def evaluate(model:nn.Module, test_loader:DataLoader):
     predictions = torch.cat(all_predictions, dim=0)
     return predictions, test_loss, test_accuracy
 
-train(20, model, data.train_loader)
+train(EPOCHS, model, data.train_loader)
 predictions, test_loss, test_accuracy = evaluate(model, data.test_loader)
 
-print(f"Final loss: {test_loss:.4f} | Final accuracy: {test_accuracy*100:.2f}%")
+logger.info(f"Final loss: {test_loss:.4f} | Final accuracy: {test_accuracy*100:.2f}%")
 print(predictions)
 
-SAVE_PATH = Path("/home/frasero/PycharmProjects/Models")
-MODEL_NAME = "MulticlassificationFashionMNIST(state_dict).pth"
-FULL_PATH = SAVE_PATH / MODEL_NAME
-torch.save(model.state_dict(), FULL_PATH)
-print(f"Saving model's parameters to: {FULL_PATH}")
+SAVE_PATH.mkdir(parents=True, exist_ok=True)
+checkpoint = {
+    "model_state": model.state_dict(),
+    "class_to_idx": data.class_to_idx
+}
+torch.save(checkpoint, FULL_PATH)
+logging.info(f"Model and metadata saved to {FULL_PATH}")
