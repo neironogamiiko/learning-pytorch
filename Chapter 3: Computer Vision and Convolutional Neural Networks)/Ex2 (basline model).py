@@ -1,5 +1,6 @@
 import torch
 import torchmetrics
+from ignite.metrics import Accuracy
 from torch import nn, optim
 from torch.utils.data import Dataset, DataLoader
 import torchvision
@@ -168,3 +169,26 @@ for epoch in tqdm(range(EPOCHS)):
 end_time_on_cpu = timer()
 end_time_on_gpu = timer()
 print_time(train_time_on_cpu, end_time_on_cpu, device=str(next(model.parameters())))
+
+def eval_model(model : nn.Module,
+               data_loader : DataLoader,
+               criterion : nn.Module,
+               accuracy):
+    loss, acc = 0, 0
+    model.eval()
+    with torch.inference_mode():
+        for X, y in tqdm(data_loader):
+            predictions = model(X)
+
+            loss += criterion(predictions, y)
+            acc += accuracy(predictions.argmax(dim=1), y)
+
+        accuracy.reset()
+        loss /= len(data_loader)
+        acc /= len(data_loader)
+    return {"model_name": model.__class__.__name__,
+            "model_loss": loss.item(),
+            "model_acc": acc*100}
+
+model_results = eval_model(model, test_loader, criterion, accuracy)
+print(model_results)
