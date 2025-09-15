@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d1e05653-4abe-4e40-a20d-15a75235c6e5" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chapter 3: Computer Vision and Convolutional Neural Networks)/Ex3 (better model).py" beforeDir="false" afterPath="$PROJECT_DIR$/Chapter 3: Computer Vision and Convolutional Neural Networks)/Ex3 (better model).py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +59,7 @@
     "Python.Ex2 (creating models).executor": "Run",
     "Python.Ex2 (multiclass classification).executor": "Run",
     "Python.Ex2.executor": "Run",
+    "Python.Ex3 (better model).executor": "Run",
     "Python.Ex3 (metrics).executor": "Run",
     "Python.Ex4 (load models).executor": "Run",
     "Python.Ex5 (how it work together).executor": "Run",
@@ -77,7 +79,7 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
+    "settings.editor.selected.configurable": "vcs.Subversion"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -91,6 +93,9 @@
         <option value="bundled-python-sdk-8753aad8314d-d902c0275401-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-252.25557.178" />
       </set>
     </attachedChunks>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration>$USER_HOME$/.subversion</configuration>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
