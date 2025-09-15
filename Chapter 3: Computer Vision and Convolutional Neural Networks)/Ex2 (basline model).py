@@ -131,7 +131,7 @@ train_time_on_gpu = timer()
 train_time_on_cpu = timer()
 
 for epoch in tqdm(range(EPOCHS)):
-    print(f"Epoch: {epoch}\n-----")
+    print(f"\nEpoch: {epoch}\n-----")
     train_loss, train_accuracy = 0, 0
     for batch, (X,y) in enumerate(train_loader):
         model.train()
