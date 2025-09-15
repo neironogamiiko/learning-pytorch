@@ -1,4 +1,5 @@
 import torch
+import torchmetrics
 from torch import nn, optim
 from torch.utils.data import Dataset, DataLoader
 import torchvision
@@ -6,6 +7,7 @@ from torchvision import datasets, transforms
 from torchvision.transforms import ToTensor
 import matplotlib.pyplot as plt
 import matplotlib; matplotlib.use("TkAgg")
+import requests; from pathlib import Path
 
 # When starting to build a series of machine learning modelling experiments it's best practice to start with a baseline model.
 # A `baseline model` is a simple model you will try and improve upon with subsequent models/experiments.
@@ -13,8 +15,6 @@ import matplotlib; matplotlib.use("TkAgg")
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print(f"Current device: {device}")
-
-BATCH_SIZE = 32
 
 # Setup training data
 train_data = datasets.FashionMNIST(
@@ -34,6 +34,8 @@ test_data = datasets.FashionMNIST(
 )
 
 class_names = train_data.classes
+BATCH_SIZE = 32
+N_CLASSES = len(class_names)
 
 train_loader = DataLoader(
     dataset=train_data,
@@ -91,4 +93,19 @@ class FashionModel(nn.Module):
         return self.layers(x)
 
 input_shape = x.shape[1] * x.shape[2]
-model = FashionModel(input_shape=input_shape, output_shape=len(class_names))
+model = FashionModel(input_shape=input_shape, output_shape=N_CLASSES)
+
+# loss and optimizer
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.SGD(params=model.parameters(), lr=.1)
+accuracy = torchmetrics.Accuracy('multiclass', num_classes=N_CLASSES)
+
+# load helper functions
+if Path('helper_functions.py').is_file():
+    print("Skipping download. . . ")
+else:
+    print("Downloading file. . . ")
+    request = requests.get("https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/refs/heads/main/helper_functions.py")
+    with open("helper_functions.py", "wb") as file:
+        file.write(request.content)
+

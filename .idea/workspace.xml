@@ -54,6 +54,7 @@
     "Python.Ex1 (toy classification dataset).executor": "Run",
     "Python.Ex1.executor": "Run",
     "Python.Ex11 (running on GPU and CPU).executor": "Run",
+    "Python.Ex2 (basline model).executor": "Run",
     "Python.Ex2 (creating models).executor": "Run",
     "Python.Ex2 (multiclass classification).executor": "Run",
     "Python.Ex2.executor": "Run",
