@@ -6,8 +6,17 @@ from torchvision import datasets
 from torchvision.transforms import ToTensor
 from pathlib import Path
 from tqdm.auto import tqdm
+import os; import gc
 
-device = 'cuda' if torch.cuda.is_available() else 'cpu'
+torch.backends.cudnn.benchmark = True
+torch.backends.cudnn.enabled = True
+torch.cuda.empty_cache()
+gc.collect()
+
+os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'max_split_size_mb:128'
+scaler = torch.amp.GradScaler(device="cuda")
+
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print(f"Current device: {device}")
 
 BATCH_SIZE = 32
