@@ -1,6 +1,5 @@
 import torch
 import torchmetrics
-from ignite.metrics import Accuracy
 from torch import nn, optim
 from torch.utils.data import Dataset, DataLoader
 import torchvision
