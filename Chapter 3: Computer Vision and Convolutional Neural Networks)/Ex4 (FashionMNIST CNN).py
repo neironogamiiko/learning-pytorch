@@ -26,7 +26,7 @@ logging.basicConfig(
     format="%(asctime)s | %(levelname)s | %(message)s",
     handlers=[
         logging.StreamHandler(),
-        logging.FileHandler("logs/CNN_course_logs.log", "w")
+        logging.FileHandler("logs/Ex4 (FashionMNIST CNN)", "w")
     ],
     force=True
 )
