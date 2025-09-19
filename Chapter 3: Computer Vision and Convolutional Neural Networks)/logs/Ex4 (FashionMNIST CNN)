@@ -1,0 +1,25 @@
+2025-09-19 10:33:49,436 | INFO | Current device: cuda
+2025-09-19 10:33:50,343 | INFO | Shape of images: torch.Size([1, 28, 28])
+Class names: ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat', 'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
+2025-09-19 10:34:08,015 | INFO | Epoch: 0 | Train loss: 0.5799 |Train Accuracy: 79.05% | Test loss: 0.4158 | Test accuracy: 84.07%
+2025-09-19 10:34:23,526 | INFO | Epoch: 1 | Train loss: 0.3559 |Train Accuracy: 87.21% | Test loss: 0.3734 | Test accuracy: 85.92%
+2025-09-19 10:34:38,547 | INFO | Epoch: 2 | Train loss: 0.3168 |Train Accuracy: 88.55% | Test loss: 0.3232 | Test accuracy: 87.95%
+2025-09-19 10:34:53,811 | INFO | Epoch: 3 | Train loss: 0.2956 |Train Accuracy: 89.28% | Test loss: 0.3128 | Test accuracy: 88.81%
+2025-09-19 10:35:09,157 | INFO | Epoch: 4 | Train loss: 0.2837 |Train Accuracy: 89.60% | Test loss: 0.3104 | Test accuracy: 88.76%
+2025-09-19 10:35:24,465 | INFO | Epoch: 5 | Train loss: 0.2744 |Train Accuracy: 90.06% | Test loss: 0.3033 | Test accuracy: 88.97%
+2025-09-19 10:35:39,532 | INFO | Epoch: 6 | Train loss: 0.2655 |Train Accuracy: 90.45% | Test loss: 0.3083 | Test accuracy: 88.51%
+2025-09-19 10:35:54,194 | INFO | Epoch: 7 | Train loss: 0.2586 |Train Accuracy: 90.70% | Test loss: 0.2856 | Test accuracy: 89.95%
+2025-09-19 10:36:08,859 | INFO | Epoch: 8 | Train loss: 0.2548 |Train Accuracy: 90.79% | Test loss: 0.2838 | Test accuracy: 89.69%
+2025-09-19 10:36:23,463 | INFO | Epoch: 9 | Train loss: 0.2490 |Train Accuracy: 90.85% | Test loss: 0.2833 | Test accuracy: 89.71%
+2025-09-19 10:36:38,120 | INFO | Epoch: 10 | Train loss: 0.2436 |Train Accuracy: 91.01% | Test loss: 0.3021 | Test accuracy: 89.25%
+2025-09-19 10:36:52,866 | INFO | Epoch: 11 | Train loss: 0.2407 |Train Accuracy: 91.22% | Test loss: 0.2827 | Test accuracy: 89.84%
+2025-09-19 10:37:07,388 | INFO | Epoch: 12 | Train loss: 0.2380 |Train Accuracy: 91.30% | Test loss: 0.2929 | Test accuracy: 89.19%
+2025-09-19 10:37:21,947 | INFO | Epoch: 13 | Train loss: 0.2386 |Train Accuracy: 91.28% | Test loss: 0.2836 | Test accuracy: 90.13%
+2025-09-19 10:37:36,808 | INFO | Epoch: 14 | Train loss: 0.2359 |Train Accuracy: 91.34% | Test loss: 0.2710 | Test accuracy: 90.07%
+2025-09-19 10:37:51,856 | INFO | Epoch: 15 | Train loss: 0.2315 |Train Accuracy: 91.48% | Test loss: 0.2856 | Test accuracy: 89.86%
+2025-09-19 10:38:06,941 | INFO | Epoch: 16 | Train loss: 0.2296 |Train Accuracy: 91.60% | Test loss: 0.2869 | Test accuracy: 89.71%
+2025-09-19 10:38:22,063 | INFO | Epoch: 17 | Train loss: 0.2286 |Train Accuracy: 91.61% | Test loss: 0.2724 | Test accuracy: 90.56%
+2025-09-19 10:38:37,143 | INFO | Epoch: 18 | Train loss: 0.2249 |Train Accuracy: 91.81% | Test loss: 0.2755 | Test accuracy: 90.07%
+2025-09-19 10:38:52,283 | INFO | Epoch: 19 | Train loss: 0.2231 |Train Accuracy: 91.72% | Test loss: 0.2657 | Test accuracy: 90.50%
+2025-09-19 10:38:53,953 | INFO | Final loss: 0.2657 | Final accuracy: 90.50%
+2025-09-19 10:38:53,996 | INFO | Model and metadata saved to /home/frasero/PycharmProjects/Models/CNNModelFromCourse(state_dict).pth
