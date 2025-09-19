@@ -14,7 +14,7 @@ logging.basicConfig(
     format="%(asctime)s | %(levelname)s | %(message)s",
     handlers=[
         logging.StreamHandler(),
-        logging.FileHandler("logs/FashionMNIST_train.log", "w")
+        logging.FileHandler("logs/Ex3 (better model)", "w")
     ]
 )
 logger = logging.getLogger(__name__)

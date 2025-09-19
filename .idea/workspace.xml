@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d1e05653-4abe-4e40-a20d-15a75235c6e5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Chapter 3: Computer Vision and Convolutional Neural Networks)/Ex4 (CNN high level overview).py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,46 +42,48 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.Additional Ex1.executor": "Run",
-    "Python.Ex 9 (reproducibility).executor": "Run",
-    "Python.Ex1 (data preparing and loading).executor": "Run",
-    "Python.Ex1 (end-to-end workflow example).executor": "Run",
-    "Python.Ex1 (getting a dataset).executor": "Run",
-    "Python.Ex1 (getting, visualization a dataset, preparing dataloader).executor": "Run",
-    "Python.Ex1 (toy classification dataset).executor": "Run",
-    "Python.Ex1.executor": "Run",
-    "Python.Ex11 (running on GPU and CPU).executor": "Run",
-    "Python.Ex2 (basline model).executor": "Run",
-    "Python.Ex2 (creating models).executor": "Run",
-    "Python.Ex2 (multiclass classification).executor": "Run",
-    "Python.Ex2.executor": "Run",
-    "Python.Ex3 (better model).executor": "Run",
-    "Python.Ex3 (metrics).executor": "Run",
-    "Python.Ex4 (CNN high level overview).executor": "Run",
-    "Python.Ex4 (load models).executor": "Run",
-    "Python.Ex5 (how it work together).executor": "Run",
-    "Python.Ex5 (matrix multiplication).executor": "Run",
-    "Python.Ex6 (Matrix aggregation).executor": "Run",
-    "Python.Ex7 (reshaping, stacking, squeezing, unsqueezing).executor": "Run",
-    "Python.Ex8 (indexing).executor": "Run",
-    "Python.Ex9 (tensor2numpy or numpy2tensor).executor": "Run",
-    "Python.Exercises (Fundamentals).executor": "Run",
-    "Python.Exercises (Neural Network Classification).executor": "Run",
-    "Python.Exercises (Neural Network Classification, part 1).executor": "Run",
-    "Python.Exercises (Neural Network Classification, part 2).executor": "Run",
-    "Python.Exercises (Workflow).executor": "Run",
-    "Python.GPT Task.executor": "Run",
-    "Python.asd.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "settings.editor.selected.configurable": "vcs.Subversion"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.Additional Ex1.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ex 9 (reproducibility).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ex1 (data preparing and loading).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ex1 (end-to-end workflow example).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ex1 (getting a dataset).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ex1 (getting, visualization a dataset, preparing dataloader).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ex1 (toy classification dataset).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ex1.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ex11 (running on GPU and CPU).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ex2 (basline model).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ex2 (creating models).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ex2 (multiclass classification).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ex2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ex3 (better model).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ex3 (metrics).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ex4 (CNN high level overview).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ex4 (load models).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ex5 (how it work together).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ex5 (matrix multiplication).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ex6 (Matrix aggregation).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ex7 (reshaping, stacking, squeezing, unsqueezing).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ex8 (indexing).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ex9 (tensor2numpy or numpy2tensor).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Exercises (Fundamentals).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Exercises (Neural Network Classification).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Exercises (Neural Network Classification, part 1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Exercises (Neural Network Classification, part 2).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Exercises (Workflow).executor&quot;: &quot;Run&quot;,
+    &quot;Python.GPT Task.executor&quot;: &quot;Run&quot;,
+    &quot;Python.asd.executor&quot;: &quot;Run&quot;,
+    &quot;Python.learning-pytorch.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/frasero/PycharmProjects/learning-pytorch/Chapter 3: Computer Vision and Convolutional Neural Networks)/Ex4 (CNN high level overview).py&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/PyToch Fundamentals" />
