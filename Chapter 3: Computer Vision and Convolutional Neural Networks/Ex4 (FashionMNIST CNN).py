@@ -1,15 +1,17 @@
-import torch
-import torchmetrics
+import torch; import torchmetrics
 from torch import nn, optim
 from torch.utils.data import Dataset, DataLoader
 from torchvision import datasets
 from torchvision.transforms import ToTensor
 import logging; from pathlib import Path
 import sys; from tqdm.auto import tqdm
+import random
+import matplotlib.pyplot as plt
+import matplotlib; matplotlib.use("TkAgg")
 
 SEED = 42
 BATCH_SIZE = 32
-LEARNING_RATE = .1
+LEARNING_RATE = .01
 N_CLASSES = 10
 EPOCHS = 20
 SAVE_PATH = Path("/home/frasero/PycharmProjects/Models")
@@ -26,7 +28,7 @@ logging.basicConfig(
     format="%(asctime)s | %(levelname)s | %(message)s",
     handlers=[
         logging.StreamHandler(),
-        logging.FileHandler("logs/Ex4 (FashionMNIST CNN)", "w")
+        logging.FileHandler("logs/Ex4 (FashionMNIST CNN).log", "w")
     ],
     force=True
 )
@@ -155,7 +157,8 @@ model = Model(input_shape=image.shape[0], output_shape=len(class_names), hidden_
 
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(params=model.parameters(), lr=LEARNING_RATE)
-accuracy = torchmetrics.Accuracy("multiclass", num_classes=N_CLASSES).to(device)
+accuracy = torchmetrics.classification.MulticlassAccuracy(num_classes=N_CLASSES).to(device)
+
 
 def train(epochs:int, model:nn.Module, train_loader:DataLoader):
     for epoch in tqdm(range(epochs)):
@@ -223,10 +226,41 @@ predictions, test_loss, test_accuracy = evaluate(model, data.test_loader)
 logger.info(f"Final loss: {test_loss:.4f} | Final accuracy: {test_accuracy*100:.2f}%")
 print(predictions)
 
+test_samples, test_labels = [], []
+for sample, label in random.sample(list(data.test_data), k=9):
+    test_samples.append(sample)
+    test_labels.append(label)
+
+
+plt.figure(figsize=(9, 9))
+nrows, ncols = 3, 3
+
+model.eval()
+with torch.inference_mode():
+    for i, sample in enumerate(test_samples):
+        sample_device = sample.unsqueeze(0).to(device)
+        logits = model(sample_device)
+        predictions_labels = torch.argmax(logits, dim=1).item()
+
+        truth_label = test_labels[i]
+
+        plt.subplot(nrows, ncols, i + 1)
+        plt.imshow(sample.squeeze(), cmap="gray")
+
+        title_text = f"Pred: {class_names[predictions_labels]} | Truth: {class_names[truth_label]}"
+        if predictions_labels == truth_label:
+            plt.title(title_text, fontsize=10, c="g")
+        else:
+            plt.title(title_text, fontsize=10, c="r")
+
+        plt.axis("off")
+
+plt.show()
+
 SAVE_PATH.mkdir(parents=True, exist_ok=True)
 checkpoint = {
     "model_state": model.state_dict(),
     "class_to_idx": data.class_to_idx
 }
 torch.save(checkpoint, FULL_PATH)
-logging.info(f"Model and metadata saved to {FULL_PATH}")
+logger.info(f"Model and metadata saved to {FULL_PATH}")
