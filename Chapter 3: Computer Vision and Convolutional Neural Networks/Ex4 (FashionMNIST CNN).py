@@ -1,8 +1,13 @@
 import torch; import torchmetrics
 from torch import nn, optim
 from torch.utils.data import Dataset, DataLoader
+
 from torchvision import datasets
 from torchvision.transforms import ToTensor
+
+from torchmetrics import ConfusionMatrix
+from mlxtend.plotting import plot_confusion_matrix
+
 import logging; from pathlib import Path
 import sys; from tqdm.auto import tqdm
 import random
@@ -226,6 +231,8 @@ predictions, test_loss, test_accuracy = evaluate(model, data.test_loader)
 logger.info(f"Final loss: {test_loss:.4f} | Final accuracy: {test_accuracy*100:.2f}%")
 print(predictions)
 
+#    9 RANDOM SAMPLES    #
+
 test_samples, test_labels = [], []
 for sample, label in random.sample(list(data.test_data), k=9):
     test_samples.append(sample)
@@ -256,6 +263,30 @@ with torch.inference_mode():
         plt.axis("off")
 
 plt.show()
+
+#    WHOLE DATASET    #
+
+y_preds = []
+model.eval()
+with torch.inference_mode():
+    for X, y in data.test_loader:
+        X, y = X.to(device), y.to(device)
+        logits = model(X)
+        y_pred = torch.softmax(logits.squeeze(), dim=0).argmax(dim=1)
+        y_preds.append(y_pred.cpu())
+y_pred_tensor = torch.cat(y_preds)
+
+#    CONFUSION MATRIX    #
+
+confusion_matrix = ConfusionMatrix(num_classes=N_CLASSES, task="multiclass")
+confusion_matrix_tensor = confusion_matrix(preds=y_pred_tensor,
+                                           target=data.test_data.targets)
+
+fig, ax = plot_confusion_matrix(
+    conf_mat=confusion_matrix_tensor.numpy(),
+    class_names=class_names,
+    figsize=(10,7)
+); plt.show()
 
 SAVE_PATH.mkdir(parents=True, exist_ok=True)
 checkpoint = {
