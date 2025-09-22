@@ -1,0 +1,22 @@
+2025-09-19 11:17:51,448 | INFO | Epoch: 0 | Train loss: 0.5181 |Train Accuracy: 81.04% | Test loss: 0.3262 | Test accuracy: 87.82%
+2025-09-19 11:18:10,921 | INFO | Epoch: 1 | Train loss: 0.3478 |Train Accuracy: 87.38% | Test loss: 0.2911 | Test accuracy: 89.19%
+2025-09-19 11:18:30,391 | INFO | Epoch: 2 | Train loss: 0.2970 |Train Accuracy: 89.28% | Test loss: 0.2630 | Test accuracy: 90.67%
+2025-09-19 11:18:49,830 | INFO | Epoch: 3 | Train loss: 0.2671 |Train Accuracy: 90.44% | Test loss: 0.2470 | Test accuracy: 91.33%
+2025-09-19 11:19:09,374 | INFO | Epoch: 4 | Train loss: 0.2442 |Train Accuracy: 91.24% | Test loss: 0.2130 | Test accuracy: 92.29%
+2025-09-19 11:19:28,859 | INFO | Epoch: 5 | Train loss: 0.2258 |Train Accuracy: 91.87% | Test loss: 0.2189 | Test accuracy: 91.99%
+2025-09-19 11:19:48,448 | INFO | Epoch: 6 | Train loss: 0.2122 |Train Accuracy: 92.29% | Test loss: 0.2070 | Test accuracy: 92.36%
+2025-09-19 11:20:07,830 | INFO | Epoch: 7 | Train loss: 0.2021 |Train Accuracy: 92.73% | Test loss: 0.2013 | Test accuracy: 92.78%
+2025-09-19 11:20:27,055 | INFO | Epoch: 8 | Train loss: 0.1942 |Train Accuracy: 92.98% | Test loss: 0.1997 | Test accuracy: 93.05%
+2025-09-19 11:20:46,617 | INFO | Epoch: 9 | Train loss: 0.1850 |Train Accuracy: 93.17% | Test loss: 0.2074 | Test accuracy: 92.18%
+2025-09-19 11:21:06,205 | INFO | Epoch: 10 | Train loss: 0.1763 |Train Accuracy: 93.55% | Test loss: 0.1909 | Test accuracy: 93.15%
+2025-09-19 11:21:25,705 | INFO | Epoch: 11 | Train loss: 0.1680 |Train Accuracy: 93.77% | Test loss: 0.1964 | Test accuracy: 93.06%
+2025-09-19 11:21:45,134 | INFO | Epoch: 12 | Train loss: 0.1644 |Train Accuracy: 93.96% | Test loss: 0.1980 | Test accuracy: 93.22%
+2025-09-19 11:22:04,659 | INFO | Epoch: 13 | Train loss: 0.1606 |Train Accuracy: 94.15% | Test loss: 0.1932 | Test accuracy: 93.15%
+2025-09-19 11:22:24,054 | INFO | Epoch: 14 | Train loss: 0.1546 |Train Accuracy: 94.33% | Test loss: 0.1879 | Test accuracy: 93.34%
+2025-09-19 11:22:43,389 | INFO | Epoch: 15 | Train loss: 0.1501 |Train Accuracy: 94.42% | Test loss: 0.2015 | Test accuracy: 93.13%
+2025-09-19 11:23:02,779 | INFO | Epoch: 16 | Train loss: 0.1453 |Train Accuracy: 94.67% | Test loss: 0.1990 | Test accuracy: 93.27%
+2025-09-19 11:23:22,141 | INFO | Epoch: 17 | Train loss: 0.1384 |Train Accuracy: 94.98% | Test loss: 0.1995 | Test accuracy: 93.58%
+2025-09-19 11:23:41,581 | INFO | Epoch: 18 | Train loss: 0.1344 |Train Accuracy: 94.90% | Test loss: 0.2041 | Test accuracy: 93.65%
+2025-09-19 11:24:01,037 | INFO | Epoch: 19 | Train loss: 0.1323 |Train Accuracy: 95.06% | Test loss: 0.1999 | Test accuracy: 93.29%
+2025-09-19 11:24:03,108 | INFO | Final loss: 0.1999 | Final accuracy: 93.29%
+2025-09-19 11:24:03,124 | INFO | Model and metadata saved to /home/frasero/PycharmProjects/Models/MulticlassificationFashionMNIST(state_dict).pth
