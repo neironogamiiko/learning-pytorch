@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import matplotlib; matplotlib.use("TkAgg")
 import logging; import sys
 from pathlib import Path
+import seaborn
 
 logging.captureWarnings(True)
 logging.getLogger("matplotlib").setLevel(logging.ERROR)
@@ -26,6 +27,7 @@ logger = logging.getLogger(__name__)
 sys.excepthook = lambda t, v, tb: logger.error("Uncaught exception", exc_info=(t, v, tb))
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+logger.info(f"Current device: {device}")
 
 # 1. Load the torchvision.datasets.MNIST() train and test datasets.
 
@@ -134,7 +136,7 @@ class Model(nn.Module):
             nn.MaxPool2d(kernel_size=2)
         )
 
-        self.classifiction = nn.Sequential(
+        self.classification = nn.Sequential(
             #    CLASSIFICATION    #
             nn.Flatten(),
             nn.Linear(10 * 7 * 7, num_classes)
@@ -145,7 +147,7 @@ class Model(nn.Module):
         x = self.block_two(x)
         x = self.block_three(x)
         x = self.block_four(x)
-        x = self.classifiction(x)
+        x = self.classification(x)
 
         return x
 
@@ -193,14 +195,20 @@ def train(epochs: int,
               f"Recall: {train_metrics['recall']:.4f} | "
               f"F1: {train_metrics['F1']:.4f}")
         if eval_flag:
-            test(device, model, test_loader)
+            _ = test(device, model, test_loader)
 
 def test(device: torch.device,
          model: nn.Module,
          test_loader: DataLoader):
 
     model.eval()
+
+    metrics.reset()
+    cm_metric = torchmetrics.classification.MulticlassConfusionMatrix(num_classes=NUM_CLASSES).to(device)
+    cm_metric.reset()
+
     test_loss = 0
+
     with torch.inference_mode():
         for x_batch, y_batch in test_loader:
             x_batch, y_batch = x_batch.to(device), y_batch.to(device)
@@ -211,9 +219,11 @@ def test(device: torch.device,
             predictions = torch.argmax(logits, dim=1)
 
             metrics.update(predictions, y_batch)
+            cm_metric.update(predictions, y_batch)
             test_loss += loss.item()
 
     test_metrics = metrics.compute()
+    confusion_matrix = cm_metric.compute()
     test_loss /= len(train_loader)
     logger.info(f"Test Loss: {test_loss:.4f} | "
           f"Test Accuracy: {test_metrics['accuracy']:.4f} | "
@@ -221,17 +231,34 @@ def test(device: torch.device,
           f"Test Recall: {test_metrics['recall']:.4f} | "
           f"Test F1: {test_metrics['F1']:.4f}")
 
+    return confusion_matrix
+
 train(epochs=EPOCHS,
       device=device,
       model=model,
       train_loader=train_loader,
       eval_flag=True)
 
-logger.info("\nFinal results for test data:\n")
+logger.info("Final results for test data:\n")
 
-test(device=device,
-     model=model,
-     test_loader= test_loader)
+confusion_matrix = test(device=device,
+                        model=model,
+                        test_loader= test_loader)
+
+# <-----------------------
+#    CONFUSION MATRIX    #
+# <-----------------------
+
+plt.figure(figsize=(10,10))
+seaborn.heatmap(confusion_matrix.cpu().numpy(),
+                annot=True, fmt="d", cmap="Blues",
+                xticklabels=train_data.classes,
+                yticklabels=train_data.classes)
+plt.xlabel("Predicted")
+plt.ylabel("True")
+plt.show()
+
+logger.info(f"Confusion matrix:\n{confusion_matrix}")
 
 if SAVE_FLAG:
     SAVE_PATH.mkdir(parents=True, exist_ok=True)
