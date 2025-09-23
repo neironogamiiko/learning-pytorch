@@ -53,6 +53,10 @@ BATCH_SIZE = 32
 NUM_CLASSES = len(train_data.classes)
 LEARNING_RATE = .01
 EPOCHS = 25
+SAVE_FLAG = False
+MODEL_NAME = "MNIST_CNN_state_dict.pth"
+SAVE_PATH = Path("/home/frasero/PycharmProjects/Models")
+FULL_PATH = SAVE_PATH / MODEL_NAME
 
 image, _ = train_data[0]
 print(f"Image shape: {image.shape}")
@@ -228,3 +232,8 @@ logger.info("\nFinal results for test data:\n")
 test(device=device,
      model=model,
      test_loader= test_loader)
+
+if SAVE_FLAG:
+    SAVE_PATH.mkdir(parents=True, exist_ok=True)
+    torch.save(model.state_dict(), FULL_PATH)
+    logger.info(f"Model's parameters saved to: {FULL_PATH}")
